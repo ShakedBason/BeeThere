@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BeThere.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Button
+                x:Name="chat"
+                Text="Chat"
+                Clicked="Chat_Clicked"
+                HorizontalOptions="Center" />
+
+            <Button
+                x:Name="map"
+                Text="Map"
+                Clicked="map_Clicked"
+                HorizontalOptions="Center" />
+
+            <Button
+                x:Name="location"
+                Text="Start Location"
+                Clicked="Button_Clicked"
+                HorizontalOptions="Center" ></Button>
+            <Button
+                x:Name="checkLogin"
+                Text="Login"
+                Clicked="Login_Clicked"
+                HorizontalOptions="Center" ></Button>
+
+            <Label
+                x:Name="locationLable"
+                Text=""
+                HorizontalOptions="Center"></Label>
+            
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

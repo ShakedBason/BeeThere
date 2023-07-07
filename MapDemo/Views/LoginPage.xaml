@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel ="clr-namespace:BeThere.ViewModels"
+             x:Class="BeThere.Views.LoginPage"
+             x:DataType="viewmodel:ConnectToAppViewModle"
+             Title="{Binding Title}">
+
+    <VerticalStackLayout IsVisible="{Binding IsNotBusy}">
+
+        <Entry Text="{Binding UserName}"></Entry>
+        <Entry Text="{Binding Password}"></Entry>
+
+        <Label Text="{Binding LoginFailureMessage}"
+               VerticalOptions="EndAndExpand" ></Label>
+
+
+
+        <Button Text="Login"
+                Command="{Binding LoginCommand}"
+                IsEnabled="{Binding IsNotBusy}"></Button>
+
+
+        <Button Text="Register"
+                Command="{Binding RegisterCommand}"
+                IsEnabled="{Binding IsNotBusy}"></Button>
+
+    </VerticalStackLayout>
+</ContentPage>

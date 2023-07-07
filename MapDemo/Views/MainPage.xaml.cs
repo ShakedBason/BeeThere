@@ -1,0 +1,127 @@
+﻿
+using BeThere.Models;
+using BeThere.Views;
+namespace BeThere;
+
+public partial class MainPage : ContentPage
+{
+    [Obsolete]
+    public MainPage()
+    {
+        InitializeComponent();
+
+        if (Device.RuntimePlatform == Device.Android)
+        {
+            MessagingCenter.Subscribe<LocationMessage>(this, "Location", message =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    locationLable.Text += $"{Environment.NewLine}{message.Latitude},{message.Longitude},{DateTime.Now.ToLongTimeString()}";
+                });
+            });
+
+            MessagingCenter.Subscribe<StopServiceMessage>(this, "ServiceStopped", message =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    locationLable.Text = "Location service has been stopped";
+                });
+            });
+
+            MessagingCenter.Subscribe<LocationErrorMessage>(this, "LocationError", message =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    locationLable.Text = "There was an error updating location";
+                });
+            });
+        }
+
+    }
+
+
+
+    private async void Chat_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(ChatPage));
+    }
+
+    private async void map_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(MapPage));
+    }
+
+    [Obsolete]
+    private async void Button_Clicked(Object sender, EventArgs e)
+    {
+        PermissionStatus permmision = await Permissions.RequestAsync<Permissions.LocationAlways>();
+
+        if (permmision == PermissionStatus.Denied)
+        {
+            //Let the user know they need to accept it in order to achieve credits.
+            return;
+        }
+
+        if (Device.RuntimePlatform == Device.iOS)
+        {
+            //if (CrossGeolocator.Current.IsListening)
+            //{
+            //    await CrossGeolocator.Current.StopListeningAsync();
+            //    CrossGeolocator.Current.PositionChanged -= Current_PositionChanged;
+
+            //    return;
+            //}
+
+            //await CrossGeolocator.Current.StartListeningAsync(TimeSpan.FromSeconds(1), 10, false, new Plugin.Geolocator.Abstractions.ListenerSettings
+            //{
+            //    ActivityType = Plugin.Geolocator.Abstractions.ActivityType.AutomotiveNavigation,
+            //    AllowBackgroundUpdates = true,
+            //    DeferLocationUpdates = false,
+            //    DeferralDistanceMeters = 10,
+            //    DeferralTime = TimeSpan.FromSeconds(5),
+            //    ListenForSignificantChanges = true,
+            //    PauseLocationUpdatesAutomatically = true
+            //});
+
+            //CrossGeolocator.Current.PositionChanged += Current_PositionChanged;
+        }
+        if (Device.RuntimePlatform == Device.Android)
+        {
+            if (Preferences.Get("LocationServiceRunning", false) == false)
+            {
+                StartService();
+            }
+            else
+                StopService();
+        }
+    }
+
+    private void StartService()
+    {
+        StartServiceMessage startServiceMessage = new StartServiceMessage();
+        MessagingCenter.Send(startServiceMessage, "ServiceStarted");
+        Preferences.Set("LocationServiceRunning", true);
+        locationLable.Text = "Location service has been started";
+    }
+
+    private void StopService()
+    {
+        StopServiceMessage stopServiceMessage = new StopServiceMessage();
+        MessagingCenter.Send(stopServiceMessage, "ServiceStopped");
+        Preferences.Set("LocationServiceRunning", false);
+    }
+
+    private async void Login_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+    }
+
+    //private void Current_PositionChanged(Object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
+    //{
+    //    locationLable.Text += $"{e.Position.Latitude},{e.Position.Longitude},{e.Position.Timestamp.TimeOfDay}{Environment.NewLine}";
+
+    //    Console.WriteLine($"{e.Position.Latitude},{e.Position.Longitude},{e.Position.Timestamp.TimeOfDay}{Environment.NewLine}");
+    //}
+}
+
+

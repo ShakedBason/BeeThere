@@ -1,0 +1,1 @@
+C:\Users\97254\Downloads\dotnet-maui-maps-main\dotnet-maui-maps-main\src\MapDemo\BeThere.csproj;x64
