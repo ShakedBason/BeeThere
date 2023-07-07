@@ -13,6 +13,7 @@ namespace BeThere;
 public class MainActivity : MauiAppCompatActivity
 {
     Intent serviceIntent;
+    private const int RequestCode = 5470;
 
     protected override void OnCreate(Bundle? savedInstanceState)
     {
@@ -20,6 +21,14 @@ public class MainActivity : MauiAppCompatActivity
         Platform.Init(this, savedInstanceState);
         serviceIntent = new Intent(this, typeof(AndroidLocationService));
         setServiceMethods();
+
+        if (Build.VERSION.SdkInt >= BuildVersionCodes.M &&
+            !Android.Provider.Settings.CanDrawOverlays(this))
+        {
+            Intent intent = new Intent(Android.Provider.Settings.ActionManageOverlayPermission);
+            intent.SetFlags(ActivityFlags.NewTask);
+            this.StartActivity(intent);
+        }
     }
 
     public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -66,5 +75,15 @@ public class MainActivity : MauiAppCompatActivity
 
         return false;
 
+    }
+
+    protected override void OnActivityResult(int requestCode, Result resultCode, Intent? data)
+    {
+        if(requestCode==RequestCode)
+        {
+            if(Android.Provider.Settings.CanDrawOverlays(this)) { }
+        }
+
+        base.OnActivityResult(requestCode, resultCode, data);
     }
 }

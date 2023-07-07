@@ -35,6 +35,11 @@ public partial class MainPage : ContentPage
                     locationLable.Text = "There was an error updating location";
                 });
             });
+
+            if (Preferences.Get("LocationServiceRunning", false) == true)
+            {
+                StartService();
+            }
         }
 
     }
