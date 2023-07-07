@@ -1,12 +1,107 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel ="clr-namespace:BeThere.ViewModels"
              x:Class="BeThere.Views.RegisterPage"
-             Title="RegisterPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Register now!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             BackgroundColor="{StaticResource PrimaryColor}"
+             x:DataType="viewmodel:RegisterViewModel">
+
+
+    <!--<VerticalStackLayout IsVisible="{Binding IsNotBusy}">
+        <Entry Text="{Binding User.Username}"></Entry>
+        <Entry Text="{Binding User.Password}"></Entry>
+        <Entry Text="{Binding User.Age}"></Entry>
+        <Entry Text="{Binding User.Gender}"></Entry>
+        <Entry Text="{Binding User.Phone}"></Entry>
+
+        
+        <Button Text="Register"
+                Command="{Binding RegisterCommand}"
+                IsEnabled="{Binding IsNotBusy}"></Button>
+        <Label Text="{Binding InvalidRegisterMessage}"></Label>
+
+    </VerticalStackLayout>-->
+
+    
+    <Grid IsVisible="{Binding IsNotBusy}">
+        <StackLayout>
+
+            <StackLayout Margin="0,40">
+                <Label Style="{StaticResource Headline}" FontSize="32" Text="Register" HorizontalOptions="Center"/>
+                <!--<Label FontFamily="OpenSansRegular" TextColor="{StaticResource SecondaryColor}" 
+                       FontSize="16" Text="Sign in to continue"/>-->
+            </StackLayout>
+            
+            <StackLayout>
+                <Grid>
+                  <Image Source="asterisk.png" HeightRequest="3"  HorizontalOptions="StartAndExpand"/>
+                  <Label Grid.Column="1" FontFamily="OpenSansRegular" TextColor="{StaticResource SecondaryColor}" 
+                       FontSize="16" Text="Username"/>
+                </Grid>
+              
+                <Grid Margin="0,5">
+                    <Frame Opacity="0.3" BackgroundColor="Black" CornerRadius="5"/>
+                    <Entry BackgroundColor="Transparent" Placeholder="Enter username" 
+                           TextColor="Black" Margin="5,0"
+                           Text="{Binding User.Username}"
+                           PlaceholderColor="Gray" />
+                   
+                </Grid>
+
+                <Label FontFamily="OpenSansRegular" TextColor="{StaticResource SecondaryColor}" 
+                       FontSize="16" Text="Password"/>
+                <Grid Margin="0,5">
+                    <Frame Opacity="0.3" BackgroundColor="Black" CornerRadius="5"/>
+                    <Entry BackgroundColor="Transparent" Placeholder="Enter password" 
+                           TextColor="Black" Margin="5,0"
+                           Text="{Binding User.Password}"
+                           PlaceholderColor="Gray" IsPassword="True"/>
+                </Grid>
+
+                <Label FontFamily="OpenSansRegular" TextColor="{StaticResource SecondaryColor}" 
+                       FontSize="16" Text="Confirm password"/>
+                <Grid Margin="0,5">
+                    <Frame Opacity="0.3" BackgroundColor="Black" CornerRadius="5"/>
+                    <Entry BackgroundColor="Transparent" Placeholder="Enter password" 
+                           TextColor="Black" Margin="5,0"
+                           Text="{Binding ConfirmPassword}"
+                           PlaceholderColor="Gray" IsPassword="True"/>
+                </Grid>
+
+                 <Label FontFamily="OpenSansRegular" TextColor="{StaticResource SecondaryColor}" 
+                       FontSize="16" Text="Email"/>
+                <Grid Margin="0,5">
+                    <Frame Opacity="0.3" BackgroundColor="Black" CornerRadius="5"/>
+                    <Entry BackgroundColor="Transparent" Placeholder="Enter email" 
+                           TextColor="Black" Margin="5,0"
+                           Text="{Binding User.Email}"
+                           PlaceholderColor="Gray" />
+
+                </Grid>
+
+                 <Label FontFamily="OpenSansRegular" TextColor="{StaticResource SecondaryColor}" 
+                       FontSize="16" Text="Age"/>
+                <Grid Margin="0,5">
+                    <Frame Opacity="0.3" BackgroundColor="Black" CornerRadius="5"/>
+                    <Entry BackgroundColor="Transparent" Placeholder="Enter age" 
+                           TextColor="Black" Margin="5,0"
+                           Text="{Binding User.Age}"
+                           PlaceholderColor="Gray" />
+
+                </Grid>
+            </StackLayout>
+
+            
+            <Button Margin="0,15" BackgroundColor="{StaticResource SecondaryColor}"
+                    Text="Register"
+                    TextColor="{StaticResource PrimaryColor}"
+                    Command="{Binding RegisterCommand}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    FontFamily="OpenSansBold"/>
+
+            <Label FontFamily="OpenSansRegular" TextColor="#D70040"
+                       FontSize="16" HorizontalOptions="Center" Text="{Binding InvalidRegisterMessage}"/>
+
+        </StackLayout>
+    </Grid>
 </ContentPage>

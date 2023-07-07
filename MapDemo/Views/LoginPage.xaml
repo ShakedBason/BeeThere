@@ -1,29 +1,75 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel ="clr-namespace:BeThere.ViewModels"
              x:Class="BeThere.Views.LoginPage"
              x:DataType="viewmodel:ConnectToAppViewModle"
-             Title="{Binding Title}">
-
-    <VerticalStackLayout IsVisible="{Binding IsNotBusy}">
-
-        <Entry Text="{Binding UserName}"></Entry>
-        <Entry Text="{Binding Password}"></Entry>
-
-        <Label Text="{Binding LoginFailureMessage}"
-               VerticalOptions="EndAndExpand" ></Label>
+             BackgroundColor="{StaticResource PrimaryColor}"
+             >
 
 
+    <Grid IsVisible="{Binding IsNotBusy}">
+        <StackLayout Margin="1">
+            <Image Source="beeicon.png" HeightRequest="100"  HorizontalOptions="StartAndExpand"/>
 
-        <Button Text="Login"
-                Command="{Binding LoginCommand}"
-                IsEnabled="{Binding IsNotBusy}"></Button>
+            <StackLayout Margin="0,80">
+                <Label Style="{StaticResource Headline}" FontSize="32" Text="Welcome Back"/>
+                <Label FontFamily="OpenSansRegular" TextColor="{StaticResource SecondaryColor}" 
+                       FontSize="16" Text="Sign in to continue"/>
+            </StackLayout>
+            
+            <StackLayout>
+                <Label FontFamily="OpenSansRegular" TextColor="{StaticResource SecondaryColor}" 
+                       FontSize="16" Text="Username"/>
+                <Grid Margin="0,5">
+                    <Frame Opacity="0.3" BackgroundColor="Black" CornerRadius="5"/>
+                    <Entry BackgroundColor="Transparent" Placeholder="Enter username" 
+                           TextColor="Black" Margin="5,0"
+                           Text="{Binding UserName}"
+                           PlaceholderColor="Gray" />
+                   
+                </Grid>
+
+                <Label FontFamily="OpenSansRegular" TextColor="{StaticResource SecondaryColor}" 
+                       FontSize="16" Text="Password"/>
+                <Grid Margin="0,5">
+                    <Frame Opacity="0.3" BackgroundColor="Black" CornerRadius="5"/>
+                    <Entry BackgroundColor="Transparent" Placeholder="Enter password" 
+                           TextColor="Black" Margin="5,0"
+                           Text="{Binding Password}"
+                           PlaceholderColor="Gray" IsPassword="True"/>
+
+                </Grid>
+            </StackLayout>
+
+            
+            <Button Margin="0,15" BackgroundColor="{StaticResource SecondaryColor}"
+                    Text="Login"
+                    TextColor="{StaticResource PrimaryColor}"
+                    Command="{Binding LoginCommand}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    FontFamily="OpenSansBold"/>
+
+             <Label FontFamily="OpenSansRegular" TextColor="#D70040"
+                       FontSize="16" HorizontalOptions="Center" Text="{Binding LoginFailureMessage}"/>
+
+            <StackLayout VerticalOptions="FillAndExpand" Orientation="Horizontal">
+
+                <Label FontFamily="OpenSansRegular" TextColor="{StaticResource SecondaryColor}" 
+                       FontSize="16" Text="Forgot Password?" VerticalOptions="EndAndExpand" HorizontalOptions="StartAndExpand" 
+                       />
+
+                <Label FontFamily="OpenSansRegular" TextColor="{StaticResource SecondaryColor}" 
+                       FontSize="16" Text="Create new account" VerticalOptions="EndAndExpand"
+                       IsEnabled="{Binding IsNotBusy}" HorizontalOptions="EndAndExpand">
+                    <Label.GestureRecognizers>
+                       <TapGestureRecognizer Command="{Binding RegisterCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>           
+            </StackLayout>
+
+        </StackLayout>
+    </Grid>
 
 
-        <Button Text="Register"
-                Command="{Binding RegisterCommand}"
-                IsEnabled="{Binding IsNotBusy}"></Button>
-
-    </VerticalStackLayout>
 </ContentPage>

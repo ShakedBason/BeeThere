@@ -18,13 +18,15 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("OpenSans-Bold.ttf", "OpenSansBold");
+                fonts.AddFont("Sitka.ttc", "Sitka");
             });
-            
-        
-//.ConfigureMauiHandlers(handlers =>
-//{
-//    handlers.AddHandler(typeof(Microsoft.Maui.Controls.Maps.Map), typeof(MapHandler));
-//});
+
+
+        //.ConfigureMauiHandlers(handlers =>
+        //{
+        //    handlers.AddHandler(typeof(Microsoft.Maui.Controls.Maps.Map), typeof(MapHandler));
+        //});
 
 #if DEBUG
         //builder.Logging.AddDebug();
@@ -34,7 +36,9 @@ public static class MauiProgram
         builder.Services.AddSingleton<BaseService>();
         builder.Services.AddSingleton<ConnectToAppService>();
         builder.Services.AddSingleton<ConnectToAppViewModle>();
+        builder.Services.AddSingleton<RegisterViewModel>();
         builder.Services.AddSingleton<LoginPage>();
+        builder.Services.AddSingleton<RegisterPage>();
 
         return builder.Build();
     }

@@ -31,6 +31,9 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -65,8 +68,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
-	  <PackageReference Include="Xamarin.GooglePlayServices.Maps">
-	    <Version>118.0.2.1</Version>
+	  <PackageReference Include="Xamarin.GooglePlayServices.Maps" Version="118.0.2.1">
 	  </PackageReference>
 	</ItemGroup>
 
@@ -96,4 +98,20 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="ViewModels\ConnectToAppViewModle\" />
+	  <None Remove="Resources\Fonts\OpenSans-Bold.ttf" />
+	  <None Remove="Resources\Fonts\Sitka.ttc" />
+	  <None Remove="Resources\Images\asterisk.png" />
+	  <None Remove="Resources\Images\beeicon.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="ViewModels\ConnectToAppViewModle\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Fonts\OpenSans-Bold.ttf" />
+	  <BundleResource Include="Resources\Fonts\Sitka.ttc" />
+	  <BundleResource Include="Resources\Images\asterisk.png" />
+	  <BundleResource Include="Resources\Images\beeicon.png" />
+	</ItemGroup>
 </Project>

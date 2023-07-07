@@ -17,6 +17,14 @@
                         Value="6" />
             </Style>
 
+            <Color x:Key="PrimaryColor">#FFFCD5</Color>
+            <Color x:Key="SecondaryColor">#091848 </Color>
+
+            <Style x:Key="Headline" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource SecondaryColor}" />
+                <Setter Property="FontFamily" Value="Sitka" />
+            </Style>
+
             <Style TargetType="Label">
                 <Setter Property="VerticalOptions"
                         Value="Center" />
